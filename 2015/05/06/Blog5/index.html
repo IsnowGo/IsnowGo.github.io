@@ -4,22 +4,22 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>C 内存对齐 | IsnowGo</title>
+    <title>二叉树遍历非递归实现 | IsnowGo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="IsnowGo">
     
 
     
-    <meta name="description" content="C语言内存对齐问题，一定有人曾经被困惑过，现在就来看看吧。">
+    <meta name="description" content="二叉树遍历的非递归实现你会了吗？">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C 内存对齐">
-<meta property="og:url" content="http://yoursite.com/2015/03/24/Blog1/index.html">
+<meta property="og:title" content="二叉树遍历非递归实现">
+<meta property="og:url" content="http://yoursite.com/2015/05/06/Blog5/index.html">
 <meta property="og:site_name" content="IsnowGo">
-<meta property="og:description" content="C语言内存对齐问题，一定有人曾经被困惑过，现在就来看看吧。">
+<meta property="og:description" content="二叉树遍历的非递归实现你会了吗？">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C 内存对齐">
-<meta name="twitter:description" content="C语言内存对齐问题，一定有人曾经被困惑过，现在就来看看吧。">
+<meta name="twitter:title" content="二叉树遍历非递归实现">
+<meta name="twitter:description" content="二叉树遍历的非递归实现你会了吗？">
 
     
     <link rel="alternative" href="/atom.xml" title="IsnowGo" type="application/atom+xml">
@@ -78,14 +78,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/03/24/Blog1/" title="C 内存对齐" itemprop="url">C 内存对齐</a>
+      <a href="/2015/05/06/Blog5/" title="二叉树遍历非递归实现" itemprop="url">二叉树遍历非递归实现</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://yoursite.com/about" title="IsnowGo" target="_blank" itemprop="author">IsnowGo</a>
 		
   <p class="article-time">
-    <time datetime="2015-03-24T11:30:00.000Z" itemprop="datePublished"> 发表于 2015-03-24</time>
+    <time datetime="2015-05-05T16:00:00.000Z" itemprop="datePublished"> 发表于 2015-05-06</time>
     
   </p>
 </header>
@@ -98,20 +98,16 @@
 		
 		</div>
 		
-		<p>对于内存对齐问题，先看一个问题。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span>&lt;stdio.h&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> A&#123;</span><br><span class="line">    <span class="keyword">char</span> a;</span><br><span class="line">    <span class="keyword">int</span> b;</span><br><span class="line">    <span class="keyword">short</span> c;</span><br><span class="line">&#125;m;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> B&#123;</span><br><span class="line">   <span class="keyword">int</span> b;</span><br><span class="line">   <span class="keyword">char</span> a;</span><br><span class="line">   <span class="keyword">short</span> c;</span><br><span class="line">&#125;n;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, <span class="keyword">sizeof</span>(m));</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, <span class="keyword">sizeof</span>(n));</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>不知道有多少人，知道程序运行的结果？</p>
-<p>答案是12:8.不明白怎么回事的请往下看。</p>
-<p>首先说一下内存对齐的规则：</p>
-<ol>
-<li><p>各成员变量存放的起始地址相对于结构的起始地址的偏移量必须为该变量的类型所占用的字节数的倍数。</p>
+		<ol>
+<li><p>前序遍历。<br>思想： 首先访问根，然后把访问根的入栈，访问该根的左子树，左子树结束之后，弹出根，访问右子树，对于右子树，重复上述。知道栈为空。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">preOrder</span><span class="params">(Node *root)</span></span>&#123;</span><br><span class="line">    <span class="stl_container"><span class="built_in">stack</span>&lt;Node*&gt;</span>s;</span><br><span class="line">    Node * p=root;</span><br><span class="line">    <span class="keyword">while</span>(p!=NULL||!s.empty())&#123;</span><br><span class="line">        <span class="keyword">while</span>(p!=NULL)&#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;p-&gt;data&lt;&lt;endl;</span><br><span class="line">            s.push(p);</span><br><span class="line">            p=p-&gt;left;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!s.empty())&#123;</span><br><span class="line">            p=s.top();</span><br><span class="line">            s.pop();</span><br><span class="line">            p=p-&gt;right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>在数据成员完成各自对齐之后，结构(或联合)本身也要进行对齐，对齐将按照#pragma pack指定的数值和结构(或联合)最大数据成员长度中，比较小的那个进行。</p>
+<li><p>中序遍历。<br>思想：思想和前序遍历一样。只是访问根的是在出栈的时候。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span>  <span class="title">inOrder</span><span class="params">(Node *root)</span></span>&#123;</span><br><span class="line">     <span class="stl_container"><span class="built_in">stack</span>&lt;Node*&gt;</span>s;</span><br><span class="line">    Node * p=root;</span><br><span class="line">    <span class="keyword">while</span>(p!=NULL||!s.empty())&#123;</span><br><span class="line">        <span class="keyword">while</span>(p!=NULL)&#123;</span><br><span class="line">            s.push(p);</span><br><span class="line">            p=p-&gt;left;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!s.empty())&#123;</span><br><span class="line">            p=s.top();</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;p-&gt;data&lt;&lt;endl;</span><br><span class="line">            s.pop();</span><br><span class="line">            p=p-&gt;right;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
+<li><p>后序遍历。<br>思想： 这是最难的。对于一棵树来说，我们可以把根，右孩子，左孩子一次入栈，这样出来的时候就可以是左右根了。每一次弹出栈的时候，如果该节点是没有儿子的，说明该节点可以直接访问，如果该节点是已经被访问过的，说明该节点是根，可以直接访问，否则的话，就把该节点的有孩子，左孩子一次入栈。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">postOrder</span><span class="params">(Node *root)</span></span>&#123;</span><br><span class="line">    <span class="stl_container"><span class="built_in">stack</span>&lt;Node*&gt;</span>s;</span><br><span class="line">    Node *pre;</span><br><span class="line">    Node *p=NULL;</span><br><span class="line">    s.push(root);</span><br><span class="line">    <span class="keyword">while</span>(!s.empty())&#123;</span><br><span class="line">        p=s.top();</span><br><span class="line">        <span class="keyword">if</span>((p-&gt;left==NULL&amp;&amp;p-&gt;right==NULL)||(pre!=NULL&amp;&amp;(pre==p-&gt;left||pre==p-&gt;right)))&#123;</span><br><span class="line">            <span class="built_in">cout</span>&lt;&lt;p-&gt;data&lt;&lt;endl;</span><br><span class="line">            s.pop();</span><br><span class="line">            pre=p;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(p-&gt;right!=NULL)</span><br><span class="line">                s.push(p-&gt;right);</span><br><span class="line">            <span class="keyword">if</span>(p-&gt;left!=NULL)</span><br><span class="line">                s.push(p-&gt;left);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ol>
-<p>对于第一种情况：</p>
-<p>  a是1个字节，所以a在占据第0位，然后是b是4个字节，所以首地址与其实地址的偏移量必须是4的倍数是4，所以1,2,3系统自动填充别的字符，然后是c是两个字节，首地址是8，所以就变成了10个字节，这样，第一条规则结束了。然后看第二个规则，最大的成员变量是int，4个字节，#pragma pack默认的是8个字节，选比较小的是4，所以，还要补充2个字节，所以一共12个字节。    </p>
-<p>第二种就留给读者自己处理了。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -120,7 +116,7 @@
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/C/">C</a>
+  <span></span> <a href="/tags/Data-Structure/">Data_Structure</a>
   </div>
 
 </div>
@@ -129,7 +125,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2015/03/24/Blog1/" data-title="C 内存对齐 | IsnowGo" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2015/05/06/Blog5/" data-title="二叉树遍历非递归实现 | IsnowGo" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -142,14 +138,14 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/03/25/Blog2/" title="Android 相机学习">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Android 相机学习</span>
+
+<div class="next">
+<a href="/2015/05/05/Blog4/"  title="二叉树相关问题">
+ <strong>下一篇：</strong><br/> 
+ <span>二叉树相关问题
+</span>
 </a>
 </div>
-
 
 </nav>
 
